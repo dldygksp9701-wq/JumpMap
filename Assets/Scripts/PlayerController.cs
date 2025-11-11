@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity;
     public float JumpPower;
     public bool isJump = false;
+
+    public event Action onJumped;
 
     private void Awake()
     {
@@ -90,7 +93,7 @@ public class PlayerController : MonoBehaviour
         if(context.phase == InputActionPhase.Started && IsGround())
         {
             _rigidbody.AddForce(Vector2.up * JumpPower, ForceMode.Impulse);
-            
+            onJumped?.Invoke();
         }
     }
 
@@ -116,4 +119,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+    
 }
