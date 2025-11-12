@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 1652883056}
   - component: {fileID: 1652883055}
   m_Layer: 0
-  m_Name: obstacle
+  m_Name: JumpCube
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
