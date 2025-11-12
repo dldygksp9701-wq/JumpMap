@@ -15,9 +15,11 @@ public class Interaction : MonoBehaviour
     private GameObject curInteractGameObject;
     public IInteractable curInteractable;
     public TextMeshProUGUI promptText;
-    private float checkRate;
+    private float checkRate = 0.1f;
     private float LastCheckTime;
-   
+    private bool isJumpBoosterActive;
+    private RaycastHit hit;
+
 
     public event Action itemjumpUp;
 
@@ -34,7 +36,7 @@ public class Interaction : MonoBehaviour
         {
             LastCheckTime = Time.time;
             Ray ray = Camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-            RaycastHit hit;
+            
 
             if (Physics.Raycast(ray, out hit, 3f, layerMask))
             {
@@ -44,12 +46,6 @@ public class Interaction : MonoBehaviour
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
                     SetPrompt();
-                    if(hit.collider.CompareTag("Item"))
-                    {
-                        StartCoroutine(JumpBooster());
-                        curInteractable?.OnInteract();
-
-                    }
                     
                 }
             }
@@ -63,6 +59,7 @@ public class Interaction : MonoBehaviour
 
     }
 
+
     public void SetPrompt()
     {
         promptText.gameObject.SetActive(true);
@@ -73,19 +70,26 @@ public class Interaction : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started)
         {
-            
-            
-            itemjumpUp?.Invoke();
+            if (curInteractGameObject != null &&
+            curInteractGameObject.CompareTag("Item") &&
+            !isJumpBoosterActive)
+            {
+                curInteractable?.OnInteract();
+                StartCoroutine(JumpBooster());
+                itemjumpUp?.Invoke();
+            }
         }
     }
 
     public IEnumerator JumpBooster()
     {
+        isJumpBoosterActive = true;
         CharacterManager.instance.player.controller.JumpPower += 3f;
 
         yield return new WaitForSeconds(CharacterManager.instance.player.itemdata.coolTime);
 
         CharacterManager.instance.player.controller.JumpPower = 5f;
+        isJumpBoosterActive = false;
     }
 }
 //하나의 기준점을 바탕으로 마우스 이동

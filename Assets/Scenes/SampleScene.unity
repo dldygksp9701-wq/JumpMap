@@ -260,7 +260,19 @@ MonoBehaviour:
     m_ActionId: ca228235-1860-4963-b0da-349908bce627
     m_ActionName: Player/CenterPoint[/Mouse/delta]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 246901220}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: ItemJumpUse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7cd4c23b-09fb-43f1-bc58-dbb27d7500ca
     m_ActionName: Player/ItemUse[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
@@ -1094,7 +1106,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d970cd58f5f3610429fb5b889c246585, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
