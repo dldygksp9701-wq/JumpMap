@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfedacdc7cddb1d4b9598ab8a4d4d409, type: 3}
   m_Name: Item_box
   m_EditorClassIdentifier: 
+  itemType: 0
   itemName: "\uC0AC\uACFC"
-  description: "\uCCB4\uB825\uC744  2 \uC0C1\uC2B9\uC2DC\uCF1C\uC900\uB2E4."
+  description: "\uC810\uD504\uB825\uC774 30\uCD08 \uB3D9\uC548 8\uC774 \uB41C\uB2E4"
+  type: 0
   maxStackMount: 99
+  coolTime: 30

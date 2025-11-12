@@ -17,15 +17,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<PlayerController>();
         condition = GetComponent<Condition>();
         
-    }
-    void Start()
-    {
         
     }
-
-    
-    void Update()
-    {
-        
-    }
+   
 }

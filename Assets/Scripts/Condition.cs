@@ -56,6 +56,8 @@ public class Condition : MonoBehaviour
         return curValue / maxValue;
     }
 
+    
+
     public void JumpDamage()
     {
         curValue -= 1;

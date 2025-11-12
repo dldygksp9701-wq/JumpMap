@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
@@ -15,9 +17,14 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI promptText;
     private float checkRate;
     private float LastCheckTime;
+   
+
+    public event Action itemjumpUp;
+
     void Start()
     {
         Camera = Camera.main;
+        
     }
 
 
@@ -31,11 +38,19 @@ public class Interaction : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 3f, layerMask))
             {
+                
                 if (hit.collider.gameObject != curInteractGameObject)
                 {
                     curInteractGameObject = hit.collider.gameObject;
                     curInteractable = hit.collider.GetComponent<IInteractable>();
                     SetPrompt();
+                    if(hit.collider.CompareTag("Item"))
+                    {
+                        StartCoroutine(JumpBooster());
+                        curInteractable?.OnInteract();
+
+                    }
+                    
                 }
             }
             else
@@ -54,7 +69,24 @@ public class Interaction : MonoBehaviour
         promptText.text = curInteractable.GetInteratPrompty();
     }
 
+    public void ItemJumpUse(InputAction.CallbackContext context)
+    {
+        if(context.phase == InputActionPhase.Started)
+        {
+            
+            
+            itemjumpUp?.Invoke();
+        }
+    }
 
+    public IEnumerator JumpBooster()
+    {
+        CharacterManager.instance.player.controller.JumpPower += 3f;
+
+        yield return new WaitForSeconds(CharacterManager.instance.player.itemdata.coolTime);
+
+        CharacterManager.instance.player.controller.JumpPower = 5f;
+    }
 }
 //하나의 기준점을 바탕으로 마우스 이동
 //카메라를 기준으로 ray를 쏨
